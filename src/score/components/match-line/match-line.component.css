@@ -1,0 +1,28 @@
+section.line-container{
+    display: flex;
+    align-items: center;
+    border: 1px solid crimson;
+    border-radius: 5px;
+    background: white;
+}
+
+section.line-container + section.line-container {
+    margin-top: 10px;
+}
+
+section.line-container > p {
+    margin: 0 12px;
+    font-size: 22px;
+    width: 100%;
+    text-align: center;
+}
+
+section.line-container > span.vs{
+    font-size: 30px;
+    margin: 0 20px;
+}
+
+section.line-container > span:not(.vs){
+    font-size: 24px;
+    color: red;
+}

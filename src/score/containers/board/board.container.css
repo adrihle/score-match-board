@@ -1,0 +1,18 @@
+main.board-container{
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    padding: 20px;
+    background: lemonchiffon;
+    max-width: 375px;
+}
+
+h3.board-title{
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+span.board-empty{
+    font-size: 15px;
+    color: red;
+}
