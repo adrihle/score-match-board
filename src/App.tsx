@@ -1,5 +1,5 @@
 import './App.css';
-import { ScoreBoard } from './score'
+import { ScoreBoard } from './score';
 
 function App() {
   return (

@@ -2,14 +2,18 @@ import { screen, render, fireEvent } from '@testing-library/react';
 import { ScorerContainer } from './scorer.container';
 import {
     internalPipe,
-    iMatchInternal,
-    iMatchInternalErrors,
     checkEmpty,
     checkErrors
 } from './scorer.container.handler';
-import { iMatch } from '../../interfaces';
+import {
+    iMatch,
+    iMatchInternal,
+    iMatchInternalErrors,
+} from '../../interfaces';
 
-beforeEach(() => render(<ScorerContainer />));
+const onSubmit = () => null;
+
+beforeEach(() => render(<ScorerContainer onSubmit={onSubmit}/>));
 
 describe("Scorer container", () => {
     it('must display container title', () => {
@@ -26,25 +30,25 @@ describe("Scorer container", () => {
     });
     describe('inputs change value', () => {
         it('inputs localTeam update on change', () => {
-            const container = render(<ScorerContainer />);
+            const container = render(<ScorerContainer onSubmit={onSubmit}/>);
             const input = container.container.querySelector(`#input-localTeam`)!;
             fireEvent.change(input, { target: { value: 'España' } });
             expect((input as any).value).toBe('España');
         });
         it('inputs localScore update on change', () => {
-            const container = render(<ScorerContainer />);
+            const container = render(<ScorerContainer onSubmit={onSubmit}/>);
             const input = container.container.querySelector(`#input-localScore`)!;
             fireEvent.change(input, { target: { value: '4' } });
             expect((input as any).value).toBe('4');
         });
         it('inputs awayTeam update on change', () => {
-            const container = render(<ScorerContainer />);
+            const container = render(<ScorerContainer onSubmit={onSubmit}/>);
             const input = container.container.querySelector(`#input-awayTeam`)!;
             fireEvent.change(input, { target: { value: 'Mexico' } });
             expect((input as any).value).toBe('Mexico');
         });
         it('inputs awayScore update on change', () => {
-            const container = render(<ScorerContainer />);
+            const container = render(<ScorerContainer onSubmit={onSubmit}/>);
             const input = container.container.querySelector(`#input-awayScore`)!;
             fireEvent.change(input, { target: { value: '3' } });
             expect((input as any).value).toBe('3');
@@ -52,7 +56,7 @@ describe("Scorer container", () => {
     });
     describe('submit button', () => {
         test('show error message for empty form', () => {
-            const container = render(<ScorerContainer />);
+            const container = render(<ScorerContainer onSubmit={onSubmit}/>);
             const submitButton = container.container.querySelector('#scorer-submit-button')!;
             fireEvent.click(submitButton);
             expect(screen.queryByText(/The form must be filled!/i)).toBeInTheDocument();
@@ -82,15 +86,15 @@ const testingCheckEmptyIncoming: iMatchInternal = {
 };
 
 const testingCheckErrorsIncoming: iMatchInternal = {
-    localTeam: 'España',
-    localScore: 'asd',
+    localTeam: 'Mexico',
+    localScore: '123a#!##$',
     awayTeam: 'Mexico',
-    awayScore: '3'
+    awayScore: '-3'
 };
 
 const testingCheckErrorsOutgoing: iMatchInternalErrors = {
-    localTeam: false,
+    localTeam: true,
     localScore: true,
-    awayTeam: false,
-    awayScore: false
+    awayTeam: true,
+    awayScore: true
 };

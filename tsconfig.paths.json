@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "paths": {
+            "@interfaces": ["./score/interfaces"],
+            "@containers": ["./score/containers"],
+            "@components": ["./score/components"],
+            "@data": ["./score/data"],
+            "@helpers": ["./score/helpers"]
+        }
+    }
+}

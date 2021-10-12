@@ -1,4 +1,8 @@
-import { iMatch } from '../../interfaces';
+import {
+    iMatch,
+    iMatchInternal,
+    iMatchInternalErrors
+} from '@interfaces';
 
 // INTERNAL PIPE FOR HANDLE EASY FORM
 export const internalPipe = (match: iMatchInternal): iMatch => {
@@ -28,44 +32,16 @@ export const checkErrors = (match: iMatchInternal): iMatchInternalErrors => {
         awayScore: false
     };
     Object.keys(match).forEach((key: string) => {
-        if (key.includes('Score') && isNaN(parseInt(match[key as keyof iMatchInternal]))){
+        if (key.includes('Score')
+            && (isNaN(Number(match[key as keyof iMatchInternal])) || Number(match[key as keyof iMatchInternal]) < 0)
+        ){
+            errors[key as keyof iMatchInternalErrors] = true;
+        } 
+        else if (key.includes('Team') && match.awayTeam === match.localTeam) {
             errors[key as keyof iMatchInternalErrors] = true;
         }
     });
     return errors;
 }
 
-export const initialStateMatch: iMatchInternal = {
-    localTeam: '',
-    localScore: '',
-    awayTeam: '',
-    awayScore: ''
-};
 
-export const initialStateMatchErrors: iMatchInternalErrors = {
-    localTeam: false,
-    localScore: false,
-    awayTeam: false,
-    awayScore: false
-};
-
-export const inputPlaceholders: iMatchInternal = {
-    localTeam: 'LOCAL TEAM',
-    localScore: 'LOCAL SCORE',
-    awayTeam: 'AWAY TEAM',
-    awayScore: 'AWAY SCORE'
-};
-
-export interface iMatchInternal {
-    localTeam: string;
-    localScore: string;
-    awayTeam: string;
-    awayScore: string;
-};
-
-export interface iMatchInternalErrors {
-    localTeam: boolean;
-    localScore: boolean;
-    awayTeam: boolean;
-    awayScore: boolean;
-}

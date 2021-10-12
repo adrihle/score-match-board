@@ -1,7 +1,7 @@
 import {
     iMatch,
     iMatchExtended
-} from '../../interfaces';
+} from '@interfaces';
 
 export const inconmingDataPipe = (match: iMatch): iMatchExtended => {
     return {

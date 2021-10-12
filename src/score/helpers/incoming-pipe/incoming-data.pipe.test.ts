@@ -2,7 +2,7 @@ import { inconmingDataPipe } from './incoming-data.pipe';
 import { 
     iMatch,
     iMatchExtended
-} from '../../interfaces';
+} from '@interfaces';
 
 describe("Testing incoming data handler", () => {
     test('The function must complete nedded data for the cycle', () => {

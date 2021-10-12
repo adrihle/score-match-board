@@ -1,15 +1,16 @@
-import { iMatch } from '../../interfaces';
-import { MatchLine } from '../../components';
+import { iMatchExtended } from '@interfaces';
+import { MatchLine } from '@components';
 import './board.container.css';
+import React from 'react';
 
-export const BoardContainer = ({ matches }: iProps): JSX.Element => {
+export const BoardContainer = React.memo(({ matches }: iProps): JSX.Element => {
     return (
         <main className='board-container'>
         <h3 className='board-title'>Matches Board</h3>
             {matches?.length ? (
                 <>
-                    {matches?.map((match, idx) => {
-                        return <MatchLine key={idx} match={match} />
+                    {matches?.map((match) => {
+                        return <MatchLine key={match.inputDate.toISOString()} match={match} />
                     })}
                 </>
             ):(
@@ -17,8 +18,8 @@ export const BoardContainer = ({ matches }: iProps): JSX.Element => {
             )}
         </main>
     )
-};
+});
 
 interface iProps {
-    matches?: iMatch[];
+    matches?: iMatchExtended[];
 }

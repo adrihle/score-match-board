@@ -1,6 +1,6 @@
 import { screen, render } from '@testing-library/react';
 import { MatchLine } from './match-line.component';
-import { iMatch } from '../../interfaces';
+import { iMatchExtended } from '@interfaces';
 
 beforeEach(() => render(<MatchLine match={testingMatch} />));
 
@@ -22,9 +22,11 @@ describe("MatchLine component", () => {
     });
 })
 
-const testingMatch: iMatch = {
+const testingMatch: iMatchExtended = {
     localTeam: 'Spain',
     localScore: 5,
     awayTeam: 'Mexico',
-    awayScore: 3
+    awayScore: 3,
+    inputDate: new Date('2021-10-03T09:55:38.286Z'),
+    totalGoals: 8
 }

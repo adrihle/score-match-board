@@ -1,11 +1,16 @@
-import { iMatch } from '../../interfaces';
-import { ChangeEvent, FormEvent, useState } from 'react';
+
+import { ChangeEvent, FormEvent, useState, useCallback } from 'react';
 import {
+    iMatch,
     iMatchInternal,
-    iMatchInternalErrors,
+    iMatchInternalErrors
+} from '@interfaces';
+import {
     initialStateMatch,
     initialStateMatchErrors,
     inputPlaceholders,
+} from '@data';
+import {
     internalPipe,
     checkEmpty,
     checkErrors
@@ -18,7 +23,7 @@ export const ScorerContainer = ({ onSubmit }: iProps): JSX.Element => {
     const [fieldErrors, setFieldErrors]=useState<iMatchInternalErrors>(initialStateMatchErrors);
 
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const onChange = useCallback((e: ChangeEvent<HTMLInputElement>): void => {
         e.preventDefault();
         // UPDATING STATE WITH A FORM FIELD VALUES
         setMatch(currentMatch => ({
@@ -27,7 +32,7 @@ export const ScorerContainer = ({ onSubmit }: iProps): JSX.Element => {
         }));
         setError(false);
         setFieldErrors(initialStateMatchErrors);
-    };
+    }, []);
 
     const onSubmitted = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -40,7 +45,7 @@ export const ScorerContainer = ({ onSubmit }: iProps): JSX.Element => {
                 anyFieldError = true;
             }
         })
-        if (onSubmit !== undefined && !checkEmpty(match) && !anyFieldError){
+        if (!checkEmpty(match) && !anyFieldError){
             onSubmit(internalPipe(match));
             // AFTER ONSUBMIT TO PARENT WE CLEAN THE FORM
             setMatch(initialStateMatch);
@@ -83,5 +88,5 @@ export const ScorerContainer = ({ onSubmit }: iProps): JSX.Element => {
 };
 
 interface iProps {
-    onSubmit?: (match: iMatch) => void;
+    onSubmit: (match: iMatch) => void;
 }
