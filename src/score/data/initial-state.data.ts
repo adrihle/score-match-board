@@ -16,10 +16,3 @@ export const initialStateMatchErrors: iMatchInternalErrors = {
     awayTeam: false,
     awayScore: false
 };
-
-export const inputPlaceholders: iMatchInternal = {
-    localTeam: 'LOCAL TEAM',
-    localScore: 'LOCAL SCORE',
-    awayTeam: 'AWAY TEAM',
-    awayScore: 'AWAY SCORE'
-};
